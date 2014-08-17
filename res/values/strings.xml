@@ -2,32 +2,7 @@
 <resources>
 
     <string name="app_name">Simplex Solver</string>
+    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="next">Next</string>  
-        
-    <string name="paramtitle">Parameter</string>  
-    <string name="var">No. of variables:</string>    
-    <string name="cons">No. of constraints:</string>
-    
-    
-    <string name="eqtitle">Equations</string>
-    <string name="max">Maximization</string>
-    <string name="min">Minimization</string>
-    <string name="btn_display">Display</string>
-    
-    <string name="restitle">Result</string>
-    
-    
-    <string name="x1">x<sub>1</sub></string>
-    <string name="x2">x<sub>2</sub></string>
-    <string name="x3">x<sub>3</sub></string>
-    <string name="x4">x<sub>4</sub></string>
-    <string name="x5">x<sub>5</sub></string>
-    <string name="x6">x<sub>6</sub></string>
-    <string name="x7">x<sub>7</sub></string>
-    <string name="x8">x<sub>8</sub></string>
-    <string name="x9">x<sub>9</sub></string>
-    <string name="x10">x<sub>10</sub></string>
-    
 
 </resources>

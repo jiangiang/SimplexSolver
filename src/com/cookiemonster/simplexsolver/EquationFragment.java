@@ -34,7 +34,7 @@ public class EquationFragment extends MainFragment{
 		
 
 
-			/*for(int i=0; i<constraint; i++){
+			for(int i=0; i<constraint; i++){
 				constraints = new LinearLayout(getActivity());
 				constraints.setPadding(5, 5, 5, 20);
 				constraints.setOrientation(LinearLayout.HORIZONTAL);
@@ -45,7 +45,7 @@ public class EquationFragment extends MainFragment{
 				create_equal(constraints);
 				create_et(constraints);
 				
-			}*/
+			}
 		
 		
 		create_var(variable,objfunc);

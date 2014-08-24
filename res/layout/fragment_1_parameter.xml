@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FEECD6" >
@@ -53,6 +52,7 @@
         android:layout_toRightOf="@+id/textView2"
         android:ems="10"
         android:inputType="number"
+        android:selectAllOnFocus="true"
         android:gravity="center" >
 		<requestFocus />
     </EditText>
@@ -67,6 +67,7 @@
         android:nextFocusDown="@+id/button1"
         android:ems="10"
         android:inputType="number"
+        android:selectAllOnFocus="true"
         android:gravity="center"/>
 
 </RelativeLayout>

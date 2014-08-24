@@ -1,8 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FEECD6" >
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/restitle"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button1"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp" >
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/mainbody" >
+                
+
+                <TableRow
+                    android:id="@+id/col_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="Basic"
+                        android:gravity="center"
+                        android:includeFontPadding="true"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                </TableRow>
+            </TableLayout>
+
+       	</HorizontalScrollView>
+
+        
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Solve" />
+
+</RelativeLayout>

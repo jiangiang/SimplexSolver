@@ -22,11 +22,13 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int back=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
+        public static final int action_settings=0x7f08000e;
         public static final int button1=0x7f080002;
+        public static final int col_title=0x7f08000d;
         public static final int container=0x7f080000;
         public static final int editText1=0x7f080005;
         public static final int editText2=0x7f080006;
@@ -37,8 +39,6 @@ public final class R {
         public static final int textView1=0x7f080003;
         public static final int textView2=0x7f080004;
         public static final int textView3=0x7f08000c;
-        public static final int textView4=0x7f08000d;
-        public static final int textView5=0x7f08000e;
         public static final int title=0x7f080001;
         public static final int toggleButton1=0x7f08000a;
     }
@@ -58,22 +58,25 @@ public final class R {
         public static final int btn_display=0x7f050009;
         public static final int cons=0x7f050005;
         public static final int eqtitle=0x7f050006;
+        public static final int lptitle=0x7f05000a;
         public static final int max=0x7f050007;
         public static final int min=0x7f050008;
         public static final int next=0x7f050002;
         public static final int paramtitle=0x7f050003;
-        public static final int restitle=0x7f05000a;
+        public static final int restitle=0x7f05000b;
+        public static final int subto=0x7f05000d;
         public static final int var=0x7f050004;
-        public static final int x1=0x7f05000b;
-        public static final int x10=0x7f050014;
-        public static final int x2=0x7f05000c;
-        public static final int x3=0x7f05000d;
-        public static final int x4=0x7f05000e;
-        public static final int x5=0x7f05000f;
-        public static final int x6=0x7f050010;
-        public static final int x7=0x7f050011;
-        public static final int x8=0x7f050012;
-        public static final int x9=0x7f050013;
+        public static final int x1=0x7f05000e;
+        public static final int x10=0x7f050017;
+        public static final int x2=0x7f05000f;
+        public static final int x3=0x7f050010;
+        public static final int x4=0x7f050011;
+        public static final int x5=0x7f050012;
+        public static final int x6=0x7f050013;
+        public static final int x7=0x7f050014;
+        public static final int x8=0x7f050015;
+        public static final int x9=0x7f050016;
+        public static final int z=0x7f05000c;
     }
     public static final class style {
         /** 

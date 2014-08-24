@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ParameterFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).addToBackStack(null).commit();
+                    .add(R.id.container, new ParameterFragment()).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         }
     }
 

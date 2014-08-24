@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FEECD6"
-    android:gravity="right" >
+    android:background="#FEECD6" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,11 +18,11 @@
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/button1"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" >
+        android:layout_margin="10dp" >
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
@@ -33,8 +32,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/mainbody" >
+                android:id="@+id/mainbody"
+                android:orientation="vertical" >
                 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
                     <ToggleButton
                         android:id="@+id/toggleButton1"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:background="#FFFFFF"
                         android:textOff="@string/min"
                         android:textOn="@string/max" />
@@ -58,12 +57,13 @@
                     android:padding="5dp" >
 
                     <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="0dp"
+                        android:id="@+id/textView1"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.84"
-                        android:text=" z = "
+                        android:gravity="center"                                                
+                        android:text="@string/z"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -72,10 +72,10 @@
                     android:padding="5dp" >
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Subject to:"
+                        android:text="@string/subto"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 </LinearLayout>
@@ -93,6 +93,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Solve" />
+        android:text="Standard Form" />
 
 </RelativeLayout>

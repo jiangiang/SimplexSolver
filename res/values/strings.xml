@@ -15,8 +15,12 @@
     <string name="min">Minimization</string>
     <string name="btn_display">Display</string>
     
+    <string name="lptitle">Standard LP Form</string>
+    
     <string name="restitle">Result</string>
     
+    <string name="z"> z = </string>
+    <string name="subto">Subject to:</string>
     
     <string name="x1">x<sub>1</sub></string>
     <string name="x2">x<sub>2</sub></string>

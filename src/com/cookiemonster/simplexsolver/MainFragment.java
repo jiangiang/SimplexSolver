@@ -10,6 +10,8 @@ public class MainFragment extends Fragment {
 	static String cons = null;
 	static String[] strin;
 	static int[] intin;
+	static int counter;
+	static boolean maximize = true;
 	
 	
 	

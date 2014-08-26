@@ -45,8 +45,8 @@
                         android:layout_width="100dp"
                         android:layout_height="48dp"
                         android:background="#FFFFFF"
-                        android:textOff="@string/min"
-                        android:textOn="@string/max" />
+                        android:textOff="@string/max"
+                        android:textOn="@string/min" />
 
                 </LinearLayout>
 

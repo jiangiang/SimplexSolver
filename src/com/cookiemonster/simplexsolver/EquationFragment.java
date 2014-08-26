@@ -14,29 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class EquationFragment extends MainFragment{
-	LinearLayout objfunc;
-	LinearLayout mainbody;
-	LinearLayout constraints;
-	TextView z;
-	EditText et;
-	TextView tv;
-	TextView ds;
-	TextView eq;
-	int counter;
-
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.fragment_2_equation, container,false);
-
-		objfunc = (LinearLayout) rootView.findViewById(R.id.objfunc);
-		mainbody = (LinearLayout) rootView.findViewById(R.id.mainbody);
+		counter = 0;
+		
+		final ToggleButton toggle = (ToggleButton) rootView.findViewById(R.id.toggleButton1);
+		LinearLayout objfunc = (LinearLayout) rootView.findViewById(R.id.objfunc);
+		LinearLayout mainbody = (LinearLayout) rootView.findViewById(R.id.mainbody);
 		Button standard = (Button) rootView.findViewById(R.id.button1);
 		variable = Integer.parseInt(var);
 		constraint = Integer.parseInt(cons);
 		
 		for(int i=0; i<variable; i++){
-			et = new EditText(getActivity());
+			EditText et = new EditText(getActivity());
 			et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 			et.setGravity(Gravity.CENTER);
@@ -52,7 +46,7 @@ public class EquationFragment extends MainFragment{
 				et.requestFocus();	
 			objfunc.addView(et);
 			
-			tv = new TextView(getActivity());
+			TextView tv = new TextView(getActivity());
 			tv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			tv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
 			if(i!=variable-1)
@@ -61,7 +55,7 @@ public class EquationFragment extends MainFragment{
 			objfunc.addView(tv);
 		}
 		for(int i=0; i<constraint; i++){
-			constraints = new LinearLayout(getActivity());
+			LinearLayout constraints = new LinearLayout(getActivity());
 			constraints.setPadding(0, 0, 0, 10);
 			constraints.setOrientation(LinearLayout.HORIZONTAL);
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -69,8 +63,19 @@ public class EquationFragment extends MainFragment{
 			create_row(constraints,i);
 		}
 		
+		toggle.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+ 				if (toggle.isChecked())
+ 					maximize = false; 
+			    else
+ 					maximize = true;
+			}
+		});
+		
 		standard.setOnClickListener(new OnClickListener() {
         	public void onClick(View v) {
+        		
         		//to read from the textbox using the ID
         		
 /*        		TextView temp;
@@ -88,13 +93,13 @@ public class EquationFragment extends MainFragment{
 		return rootView;
 	}
 	protected void create_row(LinearLayout ll, int a){
-		ds = new TextView(getActivity());
+		TextView ds = new TextView(getActivity());
 		ds.setText("");
 		ds.setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45, getResources().getDisplayMetrics()));
 		ll.addView(ds);
 
 		for(int i=0; i<variable; i++){
-			et = new EditText(getActivity());
+			EditText et = new EditText(getActivity());
 			et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 			et.setGravity(Gravity.CENTER);
@@ -105,12 +110,10 @@ public class EquationFragment extends MainFragment{
 			
 			//to show the id of each textbox. MUZ remove the line afterward
 			et.setText(String.valueOf(counter));
-			
-			if(i==0)
-				et.requestFocus();	
+
 			ll.addView(et);
 			
-			tv = new TextView(getActivity());
+			TextView tv = new TextView(getActivity());
 			tv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			tv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
 			if(i!=variable-1)
@@ -119,13 +122,13 @@ public class EquationFragment extends MainFragment{
 			ll.addView(tv);
 		}
 
-		eq = new TextView(getActivity());
+		TextView eq = new TextView(getActivity());
 		eq.setWidth(50);
 		eq.setGravity(Gravity.CENTER);
 		eq.setText(Html.fromHtml("<big>¡Ü</big>"));
 		ll.addView(eq);
 
-		et = new EditText(getActivity());
+		EditText et = new EditText(getActivity());
 		et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 		et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 		et.setGravity(Gravity.CENTER);

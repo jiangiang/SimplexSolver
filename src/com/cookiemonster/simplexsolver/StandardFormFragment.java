@@ -1,6 +1,5 @@
 package com.cookiemonster.simplexsolver;
 
-
 import android.os.Bundle;
 import android.text.Html;
 import android.util.TypedValue;
@@ -16,61 +15,62 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class StandardFormFragment extends MainFragment {
-	LinearLayout objfunc;
-	TableLayout mainbody;
-	TableRow row;
-	TextView rt;
-	TextView tv;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_3_standard_form, container,false);
 		
-		objfunc = (LinearLayout) rootView.findViewById(R.id.objfunc);
-		mainbody = (TableLayout) rootView.findViewById(R.id.mainbody);
+		TextView type = (TextView) rootView.findViewById(R.id.type);
+		LinearLayout objfunc = (LinearLayout) rootView.findViewById(R.id.objfunc);
+		TableLayout mainbody = (TableLayout) rootView.findViewById(R.id.mainbody);
 		Button solve = (Button) rootView.findViewById(R.id.button1);
 		
-		for(int i=0; i<6; i++){
-			tv = new TextView(getActivity());
-			tv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			tv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));			
-			if(i!=6-1)
-				tv.append(" + ");
-			tv.setPadding(0, 0, 0, 10);
-			objfunc.addView(tv);
+		if(maximize==true)
+			type.setText("Maximization");
+		else
+			type.setText("Minimization");
+		
+		for(int i=0; i<variable; i++){
+			TextView objfunctv = new TextView(getActivity());
+			objfunctv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+			objfunctv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));			
+			if(i!=variable-1)
+				objfunctv.append(" + ");
+			objfunctv.setPadding(0, 0, 0, 10);
+			objfunc.addView(objfunctv);
 		}
 		
 		for(int i=0; i<constraint; i++){
-			row = new TableRow(getActivity());
+			TableRow row = new TableRow(getActivity());
 			row.setPadding(0, 0, 0, 10);
 			TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			mainbody.addView(row,params);
 			
-			rt = new TextView(getActivity());
+			TextView rt = new TextView(getActivity());
 			rt.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			rt.setText(Html.fromHtml(""));
 			rt.setWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics()));
 			row.addView(rt);
 			
 			for(int j=0; j<variable; j++){
-				TextView rt1 = new TextView(getActivity());
-				rt1.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-				rt1.setText(Html.fromHtml("x<sub><small>"+ (j+1) +"</small></sub>"));			
+				TextView var = new TextView(getActivity());
+				var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+				var.setText(Html.fromHtml(/*throw value from arr to here*/"x<sub><small>"+ (j+1) +"</small></sub>"));			
 				if(j!=variable-1)
-					rt1.append(" + ");
-				rt1.setPadding(0, 0, 0, 10);
-				row.addView(rt1);
+					var.append(" + ");
+				var.setPadding(0, 0, 0, 10);
+				row.addView(var);
 			}
 			for(int k=0; k<constraint; k++){
-				TextView ds = new TextView(getActivity());
-				ds.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+				TextView slackvar = new TextView(getActivity());
+				slackvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 				if(k==i)
-					ds.setText(" + " + Html.fromHtml("s<sub><small>"+ (k+1) +"</small></sub>"));
+					slackvar.setText(" + " + Html.fromHtml(/*throw value from arr to here*/"s<sub><small>"+ (k+1) +"</small></sub>"));
 				else
-					ds.setText(Html.fromHtml(""));
-				ds.setPadding(0, 0, 0, 10);
-				row.addView(ds);
-			
+					slackvar.setText(Html.fromHtml(""));
+				slackvar.setPadding(0, 0, 0, 10);
+				row.addView(slackvar);			
 			}
+			
 			TextView eq = new TextView(getActivity());
 			eq.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
 			eq.setText(Html.fromHtml(" = "));
@@ -80,7 +80,7 @@ public class StandardFormFragment extends MainFragment {
 			
 			TextView ans = new TextView(getActivity());
 			ans.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			ans.setText(Html.fromHtml("20"));
+			ans.setText(Html.fromHtml(/*throw value from arr to here*/"20"));
 			row.addView(ans);
 						
 		}

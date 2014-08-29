@@ -30,29 +30,29 @@ public class EquationFragment extends MainFragment{
 		constraint = Integer.parseInt(cons);
 		
 		for(int i=0; i<variable; i++){
-			EditText et = new EditText(getActivity());
-			et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-			et.setGravity(Gravity.CENTER);
-			et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			et.setSelectAllOnFocus(true);
+			EditText objfuncvar = new EditText(getActivity());
+			objfuncvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+			objfuncvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+			objfuncvar.setGravity(Gravity.CENTER);
+			objfuncvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			objfuncvar.setSelectAllOnFocus(true);
 			counter++;
-			et.setId(counter);
+			objfuncvar.setId(counter);
 			
 			//to show the id of each textbox. MUZ remove the line afterward
-			et.setText(String.valueOf(counter));
+			//et.setText(String.valueOf(counter));
 			
 			if(i==0)
-				et.requestFocus();	
-			objfunc.addView(et);
+				objfuncvar.requestFocus();	
+			objfunc.addView(objfuncvar);
 			
-			TextView tv = new TextView(getActivity());
-			tv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			tv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
+			TextView var = new TextView(getActivity());
+			var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+			var.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
 			if(i!=variable-1)
-				tv.append(" + ");
-			tv.setPadding(0, 0, 0, 10);
-			objfunc.addView(tv);
+				var.append(" + ");
+			var.setPadding(0, 0, 0, 10);
+			objfunc.addView(var);
 		}
 		for(int i=0; i<constraint; i++){
 			LinearLayout constraints = new LinearLayout(getActivity());
@@ -99,27 +99,27 @@ public class EquationFragment extends MainFragment{
 		ll.addView(ds);
 
 		for(int i=0; i<variable; i++){
-			EditText et = new EditText(getActivity());
-			et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-			et.setGravity(Gravity.CENTER);
-			et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			et.setSelectAllOnFocus(true);
+			EditText constvar = new EditText(getActivity());
+			constvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+			constvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+			constvar.setGravity(Gravity.CENTER);
+			constvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			constvar.setSelectAllOnFocus(true);
 			counter++;
-			et.setId(counter);
+			constvar.setId(counter);
 			
 			//to show the id of each textbox. MUZ remove the line afterward
-			et.setText(String.valueOf(counter));
+			//et.setText(String.valueOf(counter));
 
-			ll.addView(et);
+			ll.addView(constvar);
 			
-			TextView tv = new TextView(getActivity());
-			tv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			tv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
+			TextView var = new TextView(getActivity());
+			var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+			var.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
 			if(i!=variable-1)
-				tv.append(" + ");
-			tv.setPadding(0, 0, 0, 10);
-			ll.addView(tv);
+				var.append(" + ");
+			var.setPadding(0, 0, 0, 10);
+			ll.addView(var);
 		}
 
 		TextView eq = new TextView(getActivity());
@@ -128,21 +128,21 @@ public class EquationFragment extends MainFragment{
 		eq.setText(Html.fromHtml("<big>¡Ü</big>"));
 		ll.addView(eq);
 
-		EditText et = new EditText(getActivity());
-		et.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-		et.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-		et.setGravity(Gravity.CENTER);
+		EditText solvar = new EditText(getActivity());
+		solvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
+		solvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+		solvar.setGravity(Gravity.CENTER);
 		if(a<constraint-1)
-			et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			solvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 		else
-			et.setImeOptions(EditorInfo.IME_ACTION_DONE);
-		et.setSelectAllOnFocus(true);
+			solvar.setImeOptions(EditorInfo.IME_ACTION_DONE);
+		solvar.setSelectAllOnFocus(true);
 		counter++;
-		et.setId(counter);
+		solvar.setId(counter);
 		
 		//to show the id of each textbox. MUZ remove the line afterward
-		et.setText(String.valueOf(counter));
+		//et.setText(String.valueOf(counter));
 		
-		ll.addView(et);
+		ll.addView(solvar);
 	}
 }

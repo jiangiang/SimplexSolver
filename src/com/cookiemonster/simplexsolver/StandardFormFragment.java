@@ -6,18 +6,19 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class StandardFormFragment extends MainFragment {
+public class StandardFormFragment extends EquationFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_3_standard_form, container,false);
+		counter = 0;
 		
 		TextView type = (TextView) rootView.findViewById(R.id.type);
 		LinearLayout objfunc = (LinearLayout) rootView.findViewById(R.id.objfunc);
@@ -29,10 +30,16 @@ public class StandardFormFragment extends MainFragment {
 		else
 			type.setText("Minimization");
 		
+		Double tempvalue;
+		// Display the equation of OBJECTIVE FUNCTION
 		for(int i=0; i<variable; i++){
 			TextView objfunctv = new TextView(getActivity());
 			objfunctv.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			objfunctv.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));			
+			
+			tempvalue = consMatrix.get(0).get(i);
+			
+			objfunctv.setText(tempvalue.toString());
+			objfunctv.append(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));			
 			if(i!=variable-1)
 				objfunctv.append(" + ");
 			objfunctv.setPadding(0, 0, 0, 10);
@@ -54,7 +61,7 @@ public class StandardFormFragment extends MainFragment {
 			for(int j=0; j<variable; j++){
 				TextView var = new TextView(getActivity());
 				var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-				var.setText(Html.fromHtml(/*throw value from arr to here*/"x<sub><small>"+ (j+1) +"</small></sub>"));			
+				var.setText(Html.fromHtml(consMatrix.get(i).get(j).toString()+"x<sub><small>"+ (j+1) +"</small></sub>"));			
 				if(j!=variable-1)
 					var.append(" + ");
 				var.setPadding(0, 0, 0, 10);
@@ -63,10 +70,16 @@ public class StandardFormFragment extends MainFragment {
 			for(int k=0; k<constraint; k++){
 				TextView slackvar = new TextView(getActivity());
 				slackvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-				if(k==i)
-					slackvar.setText(" + " + Html.fromHtml(/*throw value from arr to here*/"s<sub><small>"+ (k+1) +"</small></sub>"));
-				else
+				if(k==i){
+					consMatrix.get(i).add(1.0);
+					slackvar.setText(" + " + Html.fromHtml("s<sub><small>"+ (k+1) +"</small></sub>"));
+				}
+					
+				else{
+					consMatrix.get(i).add(0.0);
 					slackvar.setText(Html.fromHtml(""));
+				}
+					
 				slackvar.setPadding(0, 0, 0, 10);
 				row.addView(slackvar);			
 			}
@@ -80,7 +93,7 @@ public class StandardFormFragment extends MainFragment {
 			
 			TextView ans = new TextView(getActivity());
 			ans.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			ans.setText(Html.fromHtml(/*throw value from arr to here*/"20"));
+			ans.setText(solMatrix.get(i+1).toString());
 			row.addView(ans);
 						
 		}

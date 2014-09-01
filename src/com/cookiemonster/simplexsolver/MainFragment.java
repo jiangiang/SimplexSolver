@@ -1,5 +1,7 @@
 package com.cookiemonster.simplexsolver;
 
+import java.util.ArrayList;
+
 import android.app.Fragment;
 import android.widget.Toast;
 
@@ -12,8 +14,8 @@ public class MainFragment extends Fragment {
 	static int[] intin;
 	static int counter;
 	static boolean maximize = true;
-	
-	
+	static ArrayList<ArrayList<Double>> consMatrix = new ArrayList<ArrayList<Double>>();
+	static ArrayList<Double> solMatrix = new ArrayList<Double>();
 	
 	
 	protected void toast(String in){

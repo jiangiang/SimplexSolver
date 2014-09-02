@@ -1,6 +1,8 @@
 package com.cookiemonster.simplexsolver;
 
 import java.lang.Object;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
@@ -13,12 +15,19 @@ import android.widget.TextView;
 
 public class ResultFragment extends MainFragment {
 	TableRow col_title;
+	View rootView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_4_result, container,
+		rootView = inflater.inflate(R.layout.fragment_4_result, container,
 				false);
 
+		matrixEnterLeave();
+		matrixTable();
+		return rootView;
+	}
+
+	protected void matrixTable() {
 		TableLayout mainbody = (TableLayout) rootView
 				.findViewById(R.id.mainbody);
 		col_title = (TableRow) rootView.findViewById(R.id.col_title);
@@ -71,7 +80,7 @@ public class ResultFragment extends MainFragment {
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Sol");
 					row.addView(lableTitle);
-					
+
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
@@ -79,15 +88,15 @@ public class ResultFragment extends MainFragment {
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Ratio");
 					row.addView(lableTitle);
-					
+
 				}
 
 			} else {
-				
+
 				TextView rowBasicView = new TextView(getActivity());
 				rowBasicView.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Large);
-				
+
 				consMatrixPos = i - 1;
 				tempPos = basicColPos.get(i - 1);
 				tempStr = basicRow.get(tempPos).toString();
@@ -95,6 +104,7 @@ public class ResultFragment extends MainFragment {
 				if (consMatrixPos == 0) {
 					rowBasicView.setText(tempStr);
 					row.addView(rowBasicView);
+
 					// add the first col of matrix which is useless
 					{
 						TextView rt1 = new TextView(getActivity());
@@ -107,6 +117,8 @@ public class ResultFragment extends MainFragment {
 
 						row.addView(rt1);
 					}
+
+					// Display the objective function matrix
 					for (int j = 0; j < (constraint + variable); j++) {
 
 						TextView rt1 = new TextView(getActivity());
@@ -125,9 +137,10 @@ public class ResultFragment extends MainFragment {
 
 						row.addView(rt1);
 					}
-
+					
 				} else {
 
+					// Display the constraint function matrix
 					char[] cArray = tempStr.toCharArray();
 					rowBasicView.setText(Html.fromHtml(cArray[0]
 							+ "<sub><small>" + cArray[1] + "</small></sub>"));
@@ -160,6 +173,11 @@ public class ResultFragment extends MainFragment {
 						rt1.setGravity(Gravity.CENTER);
 
 						// display matrix
+						if (special_multiple == false
+								&& special_unbound == false && enterPos == j
+								&& leavePos == consMatrixPos)
+							rt1.setTextColor(Color.RED);
+
 						tempDouble = consMatrix.get(consMatrixPos).get(j);
 						if (tempDouble == 0.0)
 							rt1.setText("0");
@@ -186,15 +204,76 @@ public class ResultFragment extends MainFragment {
 
 					row.addView(rt1);
 				}
+				{
+					// To Display the ratio matrix
+					TextView rt1 = new TextView(getActivity());
+					rt1.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Large);
+					rt1.setPadding(0, 0, 0, 10);
+					rt1.setWidth(60);
+					rt1.setGravity(Gravity.CENTER);
+
+					tempDouble = ratioMatrix.get(consMatrixPos);
+					if (tempDouble == 0.0)
+						rt1.setText("0");
+					else
+						rt1.setText(tempDouble.toString());
+
+					row.addView(rt1);
+				}
+				
 			}
 		}
 
-		return rootView;
 	}
-	
-	protected void matrixTable(){
-		
-		
+
+	protected void matrixEnterLeave() {
+		double enterValue = 0.0, leaveRatio = Double.MAX_VALUE, tmpRatio = 0.0;
+		int i = 0;
+
+		// If special case one of the position will remain -1
+		enterPos = -1;
+		leavePos = -1;
+
+		// Special case - Multiple optimal solution
+		for (int j = 0; j < variable; j++) {
+			if (consMatrix.get(0).get(j) == 0)
+				special_multiple = true;
+			else
+				special_multiple = false;
+		}
+		// IF multiple optimal detected than the following iteration can be skipped
+		if (special_multiple == false) {
+			while (i < consMatrix.size()) {
+				if (consMatrix.get(0).get(i) < enterValue) {
+					enterValue = consMatrix.get(0).get(i);
+					enterPos = i;
+				}
+				i++;
+			}
+
+			i = 0;
+			while (i < consMatrix.size()) {
+				if (consMatrix.get(i).get(enterPos) != 0.0) {
+					tmpRatio = solMatrix.get(i) / consMatrix.get(i).get(enterPos);
+					if (tmpRatio < leaveRatio && tmpRatio > 0) {
+						leavePos = i;
+						ratioMatrix.add(tmpRatio);
+					}else{
+						ratioMatrix.add(tmpRatio);
+					}
+				}
+				else
+					ratioMatrix.add(0.0);
+				i++;
+			}
+
+			// Special case - unbounded
+			if (enterPos == -1 || leavePos == -1) {
+				special_unbound = false;
+			}
+		}
+
 	}
 
 	protected void matrixMUL() {

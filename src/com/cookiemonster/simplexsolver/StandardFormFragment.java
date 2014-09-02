@@ -46,18 +46,18 @@ public class StandardFormFragment extends EquationFragment {
 
 			// Store the Value into matrix
 			basicRow.add("x" + (i + 1));
-			
-			tempvalue = -1*consMatrix.get(0).get(i);
-			
+
+			tempvalue = -1 * objMatrix.get(i);
+			// tempvalue = -1*consMatrix.get(0).get(i);
 
 			objfunctv.setText(tempvalue.toString());
 			objfunctv.append(Html.fromHtml("x<sub><small>" + (i + 1)
 					+ "</small></sub>"));
-			
+
 			// Add + sign infront of each text
 			if (i != variable - 1)
 				objfunctv.append(" + ");
-			
+
 			objfunctv.setPadding(0, 0, 0, 10);
 			objfunc.addView(objfunctv);
 		}
@@ -84,26 +84,25 @@ public class StandardFormFragment extends EquationFragment {
 				TextView var = new TextView(getActivity());
 				var.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Large);
-				var.setText(Html.fromHtml(consMatrix.get(i + 1).get(j)
-						.toString()
+				var.setText(Html.fromHtml(consMatrix.get(i).get(j).toString()
 						+ "x<sub><small>" + (j + 1) + "</small></sub>"));
 				if (j != variable - 1)
 					var.append(" + ");
 				var.setPadding(0, 0, 0, 10);
 				row.addView(var);
 			}
-			
+
 			for (int k = 0; k < constraint; k++) {
 				TextView slackvar = new TextView(getActivity());
 				slackvar.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Large);
+
 				if (k == i) {
-					consMatrix.get(i+1).add(1.0);
-					basicRow.add("s" + (k + 1)); // To store the string of the
-													// row of basic
-					basicColPos.add(variable + k + 1); // To store the position
-														// of the column of
-														// basic
+					consMatrix.get(i).add(1.0);
+					basicRow.add("s" + (k + 1)); // store the string of the
+													// basic row
+					basicColPos.add(variable + k + 1); // store the position of
+														// the basic col
 					slackvar.setText(" + "
 							+ Html.fromHtml("s<sub><small>" + (k + 1)
 									+ "</small></sub>"));
@@ -111,7 +110,7 @@ public class StandardFormFragment extends EquationFragment {
 				}
 
 				else {
-					consMatrix.get(i+1).add(0.0);
+					consMatrix.get(i).add(0.0);
 					slackvar.setText(Html.fromHtml(""));
 				}
 

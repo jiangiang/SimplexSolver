@@ -1,7 +1,5 @@
 package com.cookiemonster.simplexsolver;
 
-import java.lang.Object;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,7 +7,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -17,15 +14,24 @@ import android.widget.TextView;
 public class ResultFragment extends MainFragment {
 	TableRow col_title;
 	View rootView;
-	TextView resultStatus;
-	
+	TextView resultStatusView;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_4_result, container,
 				false);
-		resultStatus = (TextView) rootView.findViewById(R.id.resultStatus);
+		resultStatusView = (TextView) rootView.findViewById(R.id.resultStatus);
+
 		matrixEnterLeave();
 		matrixTable();
+
+		// while (special_multiple == false && special_unbound == false) {
+		// Change the sequence of the BasicCol
+		// basicColPos.set(leavePos, enterPos);
+
+		// Matrix Operation
+
+		// }
 		return rootView;
 	}
 
@@ -61,7 +67,7 @@ public class ResultFragment extends MainFragment {
 					tempStr = basicRow.get(j).toString();
 					if (i == 0 && j == 0) {
 						TextView lableTitle = new TextView(getActivity());
-						
+
 						lableTitle.setWidth(90);
 						lableTitle.setGravity(Gravity.CENTER);
 						lableTitle.setText("Basic");
@@ -105,7 +111,7 @@ public class ResultFragment extends MainFragment {
 				if (consMatrixPos == 0) {
 					rowBasicView.setText(tempStr);
 					row.addView(rowBasicView);
- 
+
 					// add the first col of matrix which is useless
 					{
 						TextView rt1 = new TextView(getActivity());
@@ -130,7 +136,8 @@ public class ResultFragment extends MainFragment {
 						rt1.setGravity(Gravity.CENTER);
 
 						// display matrix
-						tempDouble = consMatrix.get(consMatrixPos).get(j);
+						tempDouble = objMatrix.get(j);
+						// tempDouble = consMatrix.get(consMatrixPos).get(j);
 						if (tempDouble == 0.0)
 							rt1.setText("0");
 						else
@@ -138,7 +145,7 @@ public class ResultFragment extends MainFragment {
 
 						row.addView(rt1);
 					}
-					
+
 				} else {
 
 					// Display the constraint function matrix
@@ -175,10 +182,10 @@ public class ResultFragment extends MainFragment {
 						// display matrix
 						if (special_multiple == false
 								&& special_unbound == false && enterPos == j
-								&& leavePos == consMatrixPos)
+								&& leavePos == consMatrixPos - 1)
 							rt1.setTextColor(Color.RED);
 
-						tempDouble = consMatrix.get(consMatrixPos).get(j);
+						tempDouble = consMatrix.get(consMatrixPos - 1).get(j);
 						if (tempDouble == 0.0)
 							rt1.setText("0");
 						else
@@ -205,7 +212,6 @@ public class ResultFragment extends MainFragment {
 					row.addView(rt1);
 				}
 				{
-					// To Display the ratio matrix
 					TextView rt1 = new TextView(getActivity());
 					rt1.setTextAppearance(getActivity(),
 							android.R.style.TextAppearance_Medium);
@@ -213,15 +219,20 @@ public class ResultFragment extends MainFragment {
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
 
-					tempDouble = ratioMatrix.get(consMatrixPos);
-					if (tempDouble == 0.0)
-						rt1.setText("0");
-					else
-						rt1.setText(String.format("%.2f", tempDouble));
+					if (consMatrixPos == 0) {
+						rt1.setText("-");
+					} else {
+						// To Display the ratio matrix
+						tempDouble = ratioMatrix.get(consMatrixPos - 1);
+						if (tempDouble == 0.0)
+							rt1.setText("0");
+						else
+							rt1.setText(String.format("%.2f", tempDouble));
 
-					row.addView(rt1);
+						row.addView(rt1);
+					}
 				}
-				
+
 			}
 		}
 
@@ -237,33 +248,37 @@ public class ResultFragment extends MainFragment {
 
 		// Special case - Multiple optimal solution
 		for (int j = 0; j < variable; j++) {
-			if (consMatrix.get(0).get(j) == 0)
+			if (objMatrix.get(j) == 0)
 				special_multiple = true;
 			else
 				special_multiple = false;
 		}
-		// IF multiple optimal detected than the following iteration can be skipped
+		// IF multiple optimal detected than the following iteration can be
+		// skipped
 		if (special_multiple == false) {
-			while (i < consMatrix.size()) {
-				if (consMatrix.get(0).get(i) < enterValue) {
-					enterValue = consMatrix.get(0).get(i);
+			i = 0;
+			while (i < objMatrix.size()) {
+				if (objMatrix.get(i) < enterValue) {
+					enterValue = objMatrix.get(i);
 					enterPos = i;
 				}
 				i++;
 			}
 
 			i = 0;
-			while (i < consMatrix.size()) {
+
+			while (i < constraint) {
 				if (consMatrix.get(i).get(enterPos) != 0.0) {
-					tmpRatio = solMatrix.get(i) / consMatrix.get(i).get(enterPos);
+					tmpRatio = solMatrix.get(i + 1)
+							/ consMatrix.get(i).get(enterPos);
 					if (tmpRatio < leaveRatio && tmpRatio > 0) {
 						leavePos = i;
+						leaveRatio = tmpRatio;
 						ratioMatrix.add(tmpRatio);
-					}else{
+					} else {
 						ratioMatrix.add(tmpRatio);
 					}
-				}
-				else
+				} else
 					ratioMatrix.add(0.0);
 				i++;
 			}
@@ -271,16 +286,17 @@ public class ResultFragment extends MainFragment {
 			// Special case - unbounded
 			if (enterPos == -1 || leavePos == -1) {
 				special_unbound = false;
-				
-				resultStatus.setText("Unbounded");
+
+				resultStatusView.setText("Unbounded");
 			}
-		}else
-			resultStatus.setText("Multiple Optimal Solution");
+		} else
+			resultStatusView.setText("Multiple Optimal Solution");
 
 	}
 
-	protected void matrixMUL() {
+	// protected ArrayList<ArrayList<Double>> matrixMUL() {
 
-	}
+	// return 0;
+	// }
 
 }

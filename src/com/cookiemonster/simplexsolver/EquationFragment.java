@@ -29,7 +29,9 @@ public class EquationFragment extends MainFragment {
 		solMatrix.clear();
 		basicRow.clear();
 		basicColPos.clear();
-
+		objMatrix.clear();
+		ratioMatrix.clear();
+		
 		final ToggleButton toggle = (ToggleButton) rootView
 				.findViewById(R.id.toggleButton1);
 		LinearLayout objfunc = (LinearLayout) rootView
@@ -117,23 +119,22 @@ public class EquationFragment extends MainFragment {
 
 				counter = 0;
 				for (int i = 0; i < variable; i++) {
-
+					// Store the objective variable value
 					counter++;
 					tempVal = (TextView) rootView.findViewById(counter);
 					temp = tempVal.getText().toString();
-					consMatrix.get(0).add(-1.0*Double.parseDouble(temp));
+					objMatrix.add(-1.0*Double.parseDouble(temp));
 				}
 
 				for (int i = 0; i < constraint; i++) {
-					consMatrix.get(0).add(0.0);	// Fill the zero of the slack variable in objective row
+					objMatrix.add(0.0); // Fill the zero of the slack variable in objective row
 					consMatrix.add(new ArrayList<Double>());
-					
 					for (int j = 0; j < variable; j++) {
-
+						// Store the Constraint variable value
 						counter++;
 						tempVal = (TextView) rootView.findViewById(counter);
 						temp = tempVal.getText().toString();
-						consMatrix.get(i + 1).add(Double.parseDouble(temp));
+						consMatrix.get(i).add(Double.parseDouble(temp));
 					}
 
 					counter++;

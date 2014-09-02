@@ -21,6 +21,7 @@ public class MainFragment extends Fragment {
 	// static boolean special_cycling = false;
 	// static boolean special_redundant = false;
 	static ArrayList<ArrayList<Double>> consMatrix = new ArrayList<ArrayList<Double>>();
+	static ArrayList<Double> objMatrix = new ArrayList<Double>();
 	static ArrayList<Double> solMatrix = new ArrayList<Double>();
 	static ArrayList<String> basicRow = new ArrayList<String>();
 	static ArrayList<Integer> basicColPos = new ArrayList<Integer>();

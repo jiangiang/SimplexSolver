@@ -47,7 +47,7 @@ public class StandardFormFragment extends EquationFragment {
 			// Store the Value into matrix
 			basicRow.add("x" + (i + 1));
 			
-			tempvalue = consMatrix.get(0).get(i);
+			tempvalue = -1*consMatrix.get(0).get(i);
 			
 
 			objfunctv.setText(tempvalue.toString());

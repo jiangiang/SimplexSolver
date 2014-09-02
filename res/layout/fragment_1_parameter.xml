@@ -24,7 +24,7 @@
         android:text="@string/next" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/resultStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/title"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/title"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/resultStatus"
         android:text="@string/cons"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -47,8 +47,8 @@
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/resultStatus"
+        android:layout_alignBottom="@+id/resultStatus"
         android:layout_toRightOf="@+id/textView2"
         android:ems="10"
         android:inputType="number"

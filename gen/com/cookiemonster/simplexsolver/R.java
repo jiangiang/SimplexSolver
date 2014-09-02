@@ -35,8 +35,8 @@ public final class R {
         public static final int horizontalScrollView1=0x7f080008;
         public static final int mainbody=0x7f080009;
         public static final int objfunc=0x7f08000b;
+        public static final int resultStatus=0x7f080003;
         public static final int scrollView1=0x7f080007;
-        public static final int textView1=0x7f080003;
         public static final int textView2=0x7f080004;
         public static final int textView3=0x7f08000d;
         public static final int title=0x7f080001;

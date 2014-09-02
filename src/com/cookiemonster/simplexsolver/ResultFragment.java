@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,12 +17,13 @@ import android.widget.TextView;
 public class ResultFragment extends MainFragment {
 	TableRow col_title;
 	View rootView;
-
+	TextView resultStatus;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_4_result, container,
 				false);
-
+		resultStatus = (TextView) rootView.findViewById(R.id.resultStatus);
 		matrixEnterLeave();
 		matrixTable();
 		return rootView;
@@ -271,8 +273,11 @@ public class ResultFragment extends MainFragment {
 			// Special case - unbounded
 			if (enterPos == -1 || leavePos == -1) {
 				special_unbound = false;
+				
+				resultStatus.setText("Unbounded");
 			}
-		}
+		}else
+			resultStatus.setText("Multiple Optimal Solution");
 
 	}
 

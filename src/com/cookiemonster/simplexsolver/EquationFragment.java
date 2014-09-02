@@ -25,6 +25,10 @@ public class EquationFragment extends MainFragment {
 		final View rootView = inflater.inflate(R.layout.fragment_2_equation,
 				container, false);
 		counter = 0;
+		consMatrix.clear();
+		solMatrix.clear();
+		basicRow.clear();
+		basicColPos.clear();
 
 		final ToggleButton toggle = (ToggleButton) rootView
 				.findViewById(R.id.toggleButton1);
@@ -36,7 +40,6 @@ public class EquationFragment extends MainFragment {
 
 		variable = Integer.parseInt(var);
 		constraint = Integer.parseInt(cons);
-<<<<<<< HEAD
 
 		// Generate the TEXTBOX of OBJECTIVE FUNCTION
 		for (int i = 0; i < variable; i++) {
@@ -54,7 +57,6 @@ public class EquationFragment extends MainFragment {
 			counter++;
 			et.setId(counter);
 
-			// to show the id of each textbox. MUST remove the line afterward
 			et.setText(String.valueOf(counter));
 
 			if (i == 0)
@@ -73,33 +75,6 @@ public class EquationFragment extends MainFragment {
 
 			tv.setPadding(0, 0, 0, 10);
 			objfunc.addView(tv);
-=======
-		
-		for(int i=0; i<variable; i++){
-			EditText objfuncvar = new EditText(getActivity());
-			objfuncvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			objfuncvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-			objfuncvar.setGravity(Gravity.CENTER);
-			objfuncvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			objfuncvar.setSelectAllOnFocus(true);
-			counter++;
-			objfuncvar.setId(counter);
-			
-			//to show the id of each textbox. MUZ remove the line afterward
-			//et.setText(String.valueOf(counter));
-			
-			if(i==0)
-				objfuncvar.requestFocus();	
-			objfunc.addView(objfuncvar);
-			
-			TextView var = new TextView(getActivity());
-			var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			var.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
-			if(i!=variable-1)
-				var.append(" + ");
-			var.setPadding(0, 0, 0, 10);
-			objfunc.addView(var);
->>>>>>> origin/alpha
 		}
 
 		for (int i = 0; i < constraint; i++) {
@@ -146,11 +121,13 @@ public class EquationFragment extends MainFragment {
 					counter++;
 					tempVal = (TextView) rootView.findViewById(counter);
 					temp = tempVal.getText().toString();
-					consMatrix.get(0).add(Double.parseDouble(temp));
+					consMatrix.get(0).add(-1.0*Double.parseDouble(temp));
 				}
 
 				for (int i = 0; i < constraint; i++) {
+					consMatrix.get(0).add(0.0);	// Fill the zero of the slack variable in objective row
 					consMatrix.add(new ArrayList<Double>());
+					
 					for (int j = 0; j < variable; j++) {
 
 						counter++;
@@ -182,7 +159,6 @@ public class EquationFragment extends MainFragment {
 						.getDisplayMetrics()));
 		ll.addView(ds);
 
-<<<<<<< HEAD
 		for (int i = 0; i < variable; i++) {
 			EditText et = new EditText(getActivity());
 			et.setTextAppearance(getActivity(),
@@ -215,30 +191,6 @@ public class EquationFragment extends MainFragment {
 
 			tv.setPadding(0, 0, 0, 10);
 			ll.addView(tv);
-=======
-		for(int i=0; i<variable; i++){
-			EditText constvar = new EditText(getActivity());
-			constvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			constvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-			constvar.setGravity(Gravity.CENTER);
-			constvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			constvar.setSelectAllOnFocus(true);
-			counter++;
-			constvar.setId(counter);
-			
-			//to show the id of each textbox. MUZ remove the line afterward
-			//et.setText(String.valueOf(counter));
-
-			ll.addView(constvar);
-			
-			TextView var = new TextView(getActivity());
-			var.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-			var.setText(Html.fromHtml("x<sub><small>"+ (i+1) +"</small></sub>"));
-			if(i!=variable-1)
-				var.append(" + ");
-			var.setPadding(0, 0, 0, 10);
-			ll.addView(var);
->>>>>>> origin/alpha
 		}
 
 		TextView eq = new TextView(getActivity());
@@ -247,7 +199,6 @@ public class EquationFragment extends MainFragment {
 		eq.setText(Html.fromHtml("<big>¡Ü</big>"));
 		ll.addView(eq);
 
-<<<<<<< HEAD
 		EditText et = new EditText(getActivity());
 		et.setTextAppearance(getActivity(),
 				android.R.style.TextAppearance_Large);
@@ -257,32 +208,15 @@ public class EquationFragment extends MainFragment {
 		et.setGravity(Gravity.CENTER);
 		if (a < constraint - 1)
 			et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-=======
-		EditText solvar = new EditText(getActivity());
-		solvar.setTextAppearance(getActivity(), android.R.style.TextAppearance_Large);
-		solvar.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-		solvar.setGravity(Gravity.CENTER);
-		if(a<constraint-1)
-			solvar.setImeOptions(EditorInfo.IME_ACTION_NEXT);
->>>>>>> origin/alpha
 		else
-			solvar.setImeOptions(EditorInfo.IME_ACTION_DONE);
-		solvar.setSelectAllOnFocus(true);
+			et.setImeOptions(EditorInfo.IME_ACTION_DONE);
+		et.setSelectAllOnFocus(true);
 		counter++;
-<<<<<<< HEAD
 		et.setId(counter);
 
 		// to show the id of each textbox. MUZ remove the line afterward
 		et.setText(String.valueOf(counter));
 
 		ll.addView(et);
-=======
-		solvar.setId(counter);
-		
-		//to show the id of each textbox. MUZ remove the line afterward
-		//et.setText(String.valueOf(counter));
-		
-		ll.addView(solvar);
->>>>>>> origin/alpha
 	}
 }

@@ -16,7 +16,8 @@ public class MainFragment extends Fragment {
 	static boolean maximize = true;
 	static ArrayList<ArrayList<Double>> consMatrix = new ArrayList<ArrayList<Double>>();
 	static ArrayList<Double> solMatrix = new ArrayList<Double>();
-	
+	static ArrayList<String> basicRow = new ArrayList<String>();
+	static ArrayList<Integer> basicColPos = new ArrayList<Integer>();
 	
 	protected void toast(String in){
 		Toast.makeText(getActivity(),in,Toast.LENGTH_SHORT).show();

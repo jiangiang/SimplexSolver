@@ -26,47 +26,103 @@ public class ResultFragment extends MainFragment {
 
 		matrixEnterLeave();
 		matrixTable();
-		optimalResultCheck();
-		
-		
-		
-		while (special_multiple == false && special_unbound == false && optimalFound==false) {
+		//optimalResultCheck();
+
+		// while (special_multiple == false && special_unbound == false
+		// && optimalFound == false) {
+		while ( optimalFound == false) {
 			// Change the sequence of the BasicCol
-			basicColPos.set(leavePos, enterPos);
+			// +1 is due to the z at index 0
+			basicColPos.set(leavePos + 1, enterPos + 1);
 
 			// Step 1: initialize all the variables
 			initialMatrixOp();
 
 			// Step 2: Inverse B
+
 			b_inv_op();
 
 			// Step 3: All the matrix arithmetic
 			matrixMULObj();
 			matrixMULObjSlack();
 			matrixMULObjSol();
+			// showMatrix();
 			matrixMULCons();
 			matrixMULConsSlack();
 			matrixMULConsSol();
 			
-			//matrixEnterLeave();
-			matrixTable();
-			//optimalResultCheck();
+			optimalResultCheck();
 			
-			//debug use
-			optimalFound=true;
+			matrixEnterLeave();
+			matrixTable();
+			
+
+			// debug use
+			// optimalFound = true;
 		}
 		return rootView;
 	}
 
 	protected void optimalResultCheck() {
 		for (int i = 0; i < constraint + variable; i++) {
-			if (objMatrix.get(i) >= 0)
+			if (objMatrix.get(i) == 0)
 				optimalFound = true;
 			else {
 				optimalFound = false;
 				i = constraint + variable + 1;
 			}
 		}
+	}
+
+	void showMatrix() {
+
+		double temp;
+
+		for (int i = 0; i < variable; i++) {
+			TableLayout mainbody = (TableLayout) rootView
+					.findViewById(R.id.mainbody);
+			col_title = (TableRow) rootView.findViewById(R.id.col_title);
+
+			TableRow row = new TableRow(getActivity());
+			row.setPadding(0, 0, 0, 10);
+			TableRow.LayoutParams params = new TableRow.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+			mainbody.addView(row, params);
+
+			TextView lableTitle = new TextView(getActivity());
+			lableTitle.setWidth(60);
+			lableTitle.setGravity(Gravity.CENTER);
+			lableTitle.setBackgroundResource(R.drawable.back);
+
+			temp = B_temp.get(0).get(i);
+			lableTitle.setText(String.format("%.2f", temp));
+			row.addView(lableTitle);
+
+		}
+
+		for (int i = 0; i < variable; i++) {
+			TableLayout mainbody = (TableLayout) rootView
+					.findViewById(R.id.mainbody);
+			col_title = (TableRow) rootView.findViewById(R.id.col_title);
+
+			TableRow row = new TableRow(getActivity());
+			row.setPadding(0, 0, 0, 10);
+			TableRow.LayoutParams params = new TableRow.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT);
+			mainbody.addView(row, params);
+
+			TextView lableTitle = new TextView(getActivity());
+			lableTitle.setWidth(60);
+			lableTitle.setGravity(Gravity.CENTER);
+
+			temp = CbT.get(i);
+			lableTitle.setText(String.format("%.2f", temp));
+			row.addView(lableTitle);
+
+		}
+
 	}
 
 	protected void matrixTable() {
@@ -94,17 +150,22 @@ public class ResultFragment extends MainFragment {
 				for (int j = 0; j <= (constraint + variable); j++) {
 
 					TextView rowTitle = new TextView(getActivity());
-					// rowTitle.setTextAppearance(getActivity(),
-					// android.R.style.TextAppearance_Medium);
-					rowTitle.setWidth(60);
+					rowTitle.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Medium);
+					rowTitle.setWidth(90);
+					rowTitle.setPadding(0, 0, 0, 10);
 					rowTitle.setGravity(Gravity.CENTER);
+					rowTitle.setBackgroundResource(R.drawable.back);
 					tempStr = basicRow.get(j).toString();
 					if (i == 0 && j == 0) {
 						TextView lableTitle = new TextView(getActivity());
 
-						lableTitle.setWidth(90);
+						// lableTitle.setWidth(90);
 						lableTitle.setGravity(Gravity.CENTER);
+						lableTitle.setTextAppearance(getActivity(),
+								android.R.style.TextAppearance_Medium);
 						lableTitle.setText("Basic");
+						lableTitle.setBackgroundResource(R.drawable.back);
 						row.addView(lableTitle);
 						rowTitle.setText(tempStr);
 					} else {
@@ -117,17 +178,26 @@ public class ResultFragment extends MainFragment {
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
-					lableTitle.setWidth(60);
+
+					lableTitle.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Medium);
+					lableTitle.setWidth(90);
+					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Sol");
+					lableTitle.setBackgroundResource(R.drawable.back);
 					row.addView(lableTitle);
 
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
-					lableTitle.setWidth(60);
+					lableTitle.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Medium);
+					lableTitle.setWidth(90);
+					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Ratio");
+					lableTitle.setBackgroundResource(R.drawable.back);
 					row.addView(lableTitle);
 
 				}
@@ -138,6 +208,8 @@ public class ResultFragment extends MainFragment {
 				rowBasicView.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Medium);
 				rowBasicView.setGravity(Gravity.CENTER);
+				rowBasicView.setBackgroundResource(R.drawable.back);
+
 				consMatrixPos = i - 1;
 				tempPos = basicColPos.get(i - 1);
 				tempStr = basicRow.get(tempPos).toString();
@@ -155,6 +227,7 @@ public class ResultFragment extends MainFragment {
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
 						rt1.setText("1");
+						rt1.setBackgroundResource(R.drawable.back);
 
 						row.addView(rt1);
 					}
@@ -166,8 +239,10 @@ public class ResultFragment extends MainFragment {
 						rt1.setTextAppearance(getActivity(),
 								android.R.style.TextAppearance_Medium);
 						rt1.setPadding(0, 0, 0, 10);
-						rt1.setWidth(60);
+						rt1.setWidth(90);
 						rt1.setGravity(Gravity.CENTER);
+
+						rt1.setBackgroundResource(R.drawable.back);
 
 						// display matrix
 						tempDouble = objMatrix.get(j);
@@ -175,7 +250,7 @@ public class ResultFragment extends MainFragment {
 						if (tempDouble == 0.0)
 							rt1.setText("0");
 						else
-							rt1.setText(tempDouble.toString());
+							rt1.setText(String.format("%.2f", tempDouble));
 
 						row.addView(rt1);
 					}
@@ -189,6 +264,7 @@ public class ResultFragment extends MainFragment {
 					rowBasicView.setPadding(0, 0, 0, 10);
 					rowBasicView.setWidth(60);
 					rowBasicView.setGravity(Gravity.CENTER);
+					rowBasicView.setBackgroundResource(R.drawable.back);
 					row.addView(rowBasicView);
 
 					// add the first col of matrix which is useless
@@ -198,6 +274,7 @@ public class ResultFragment extends MainFragment {
 								android.R.style.TextAppearance_Medium);
 						rt1.setPadding(0, 0, 0, 10);
 						rt1.setWidth(60);
+						rt1.setBackgroundResource(R.drawable.back);
 						rt1.setGravity(Gravity.CENTER);
 
 						// display matrix
@@ -212,6 +289,7 @@ public class ResultFragment extends MainFragment {
 						rt1.setPadding(0, 0, 0, 10);
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
+						rt1.setBackgroundResource(R.drawable.back);
 
 						// display matrix
 						if (special_multiple == false
@@ -223,7 +301,7 @@ public class ResultFragment extends MainFragment {
 						if (tempDouble == 0.0)
 							rt1.setText("0");
 						else
-							rt1.setText(tempDouble.toString());
+							rt1.setText(String.format("%.2f", tempDouble));
 
 						row.addView(rt1);
 					}
@@ -236,12 +314,13 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
+					rt1.setBackgroundResource(R.drawable.back);
 
 					tempDouble = solMatrix.get(consMatrixPos);
 					if (tempDouble == 0.0)
 						rt1.setText("0");
 					else
-						rt1.setText(tempDouble.toString());
+						rt1.setText(String.format("%.2f", tempDouble));
 
 					row.addView(rt1);
 				}
@@ -252,6 +331,7 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
+					rt1.setBackgroundResource(R.drawable.back);
 
 					if (consMatrixPos == 0) {
 						rt1.setText("-");
@@ -300,7 +380,7 @@ public class ResultFragment extends MainFragment {
 			}
 
 			i = 0;
-
+			 if (enterPos != -1 || leavePos != -1) {
 			while (i < constraint) {
 				if (consMatrix.get(i).get(enterPos) != 0.0) {
 					tmpRatio = solMatrix.get(i + 1)
@@ -318,13 +398,15 @@ public class ResultFragment extends MainFragment {
 			}
 
 			// Special case - unbounded
-			if (enterPos == -1 || leavePos == -1) {
-				special_unbound = false;
+			// if (enterPos == -1 || leavePos == -1) {
+			// special_unbound = false;
 
-				resultStatusView.setText("Unbounded");
-			}
-		} else
-			resultStatusView.setText("Multiple Optimal Solution");
+			// resultStatusView.setText("Unbounded");
+			 }
+			// }
+		}
+		// } else
+		// resultStatusView.setText("Multiple Optimal Solution");
 
 	}
 
@@ -338,6 +420,7 @@ public class ResultFragment extends MainFragment {
 			if (tempVal < 0)
 				tempVal = tempVal * -1;
 			pivot = i;
+
 			// Choosing Pivot
 			for (int j = i + 1; j < constraint; j++) {
 				if (B.get(j).get(i) < 0)
@@ -346,7 +429,7 @@ public class ResultFragment extends MainFragment {
 					tem = B.get(j).get(i);
 				if (tempVal < 0)
 					tempVal = -1 * tempVal;
-				if (tem < tempVal) {
+				if (tem > tempVal) {
 					pivot = j;
 					tempVal = B.get(j).get(i);
 				}
@@ -389,26 +472,42 @@ public class ResultFragment extends MainFragment {
 
 		}
 	}
-	
+
 	protected void matrixMULObj() {
-		double temp;
+		double temp, sum;
 
 		CbT_mul_B_inv();
+
+		B_temp2.clear();
+		B_temp2.add(new ArrayList<Double>());
+		for (int j = 0; j < variable; j++) {
+			B_temp2.get(0).add(0.0);
+		}
+
+		// Matrix Multiplication
+
+		for (int j = 0; j < variable; j++) {
+			sum = 0;
+			for (int k = 0; k < constraint; k++) {
+				sum += B_temp.get(0).get(k) * consMatrix.get(k).get(j);
+			}
+			B_temp2.get(0).set(j, sum);
+		}
+
 		for (int i = 0; i < variable; i++) {
-			temp = B_temp.get(0).get(i) - objMatrix.get(i);
+			temp = B_temp2.get(0).get(i) + objMatrix.get(i);
 			objMatrix.set(i, temp);
 		}
 	}
 
 	protected void matrixMULObjSlack() {
-		// CbT;
 
 		// CbT multiply B inverse
 		CbT_mul_B_inv();
 
 		// Update Result
 		for (int j = 0; j < variable; j++) {
-			consMatrix.get(0).set(j + variable, B_temp.get(0).get(j));
+			objMatrix.set(j + variable, B_temp.get(0).get(j));
 		}
 
 	}
@@ -419,13 +518,13 @@ public class ResultFragment extends MainFragment {
 		CbT_mul_B_inv();
 
 		for (int k = 0; k < constraint; k++) {
-			sum += B_temp.get(0).get(k) * solMatrix.get(0);
+			sum += B_temp.get(0).get(k) * solMatrix.get(k + 1);
 		}
 		solMatrix.set(0, sum);
 
 	}
 
-	// CbT multiply B inverse
+	// CbT * B inverse
 	protected void CbT_mul_B_inv() {
 		// Dynamically generate temporary array
 		B_temp.clear();
@@ -462,7 +561,7 @@ public class ResultFragment extends MainFragment {
 			for (int j = 0; j < variable; j++) {
 				sum = 0;
 				for (int k = 0; k < constraint; k++) {
-					sum += B_inv.get(i).get(k) * consMatrix.get(j).get(k);
+					sum += B_inv.get(i).get(k) * consMatrix.get(k).get(j);
 				}
 				B_temp.get(i).set(j, sum);
 			}
@@ -482,11 +581,11 @@ public class ResultFragment extends MainFragment {
 			for (int j = 0; j < constraint; j++) {
 				temp = B_inv.get(i).get(j);
 				// Notes: i+variable is where slack value store in consMatrix
-				consMatrix.get(i).set(j+variable, temp);
+				consMatrix.get(i).set(j + variable, temp);
 			}
 		}
 	}
-	
+
 	protected void matrixMULConsSol() {
 		double sum = 0;
 
@@ -510,29 +609,32 @@ public class ResultFragment extends MainFragment {
 		}
 
 		// Update Result
-		for (int i = 1; i < constraint; i++) {
+		for (int i = 0; i < constraint; i++) {
 
-			solMatrix.set(i, B_temp.get(0).get(i));
+			solMatrix.set(i + 1, B_temp.get(0).get(i));
 
 		}
 	}
-	protected void initialMatrixOp(){
-		// Step 1: Generate CbT: obj. Coeff in order of Xb
-				for (int i = 0; i < constraint; i++) {
-					CbT.add(objMatrix.get(basicColPos.get(i)));
-				}
 
-				// Step 2: Generate B: LHS Constraint coeff in order of Xb
-				for (int i = 0; i < constraint; i++) {
-					B.add(new ArrayList<Double>());
-					B_inv.add(new ArrayList<Double>());
-					for (int j = 0; j < constraint; j++) {
-						B.get(i).add(consMatrix.get(i).get((basicColPos.get(j))));
-						if (i == j)
-							B_inv.get(i).add(1.0);
-						else
-							B_inv.get(i).add(0.0);
-					}
-				}
+	protected void initialMatrixOp() {
+		// Step 1: Generate CbT: obj. Coeff in order of Xb
+		for (int i = 0; i < constraint; i++) {
+			CbT.add((-1) * objMatrix.get(basicColPos.get(i + 1) - 1));
+		}
+
+		// Step 2: Generate B: LHS Constraint coeff in order of Xb
+		for (int i = 0; i < constraint; i++) {
+			B.add(new ArrayList<Double>());
+			B_inv.add(new ArrayList<Double>());
+
+			for (int j = 0; j < constraint; j++) {
+				int colPos = basicColPos.get(j + 1) - 1;
+				B.get(i).add(consMatrix.get(i).get(colPos));
+				if (i == j)
+					B_inv.get(i).add(1.0);
+				else
+					B_inv.get(i).add(0.0);
+			}
+		}
 	}
 }

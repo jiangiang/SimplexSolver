@@ -31,6 +31,10 @@ public class EquationFragment extends MainFragment {
 		basicColPos.clear();
 		objMatrix.clear();
 		ratioMatrix.clear();
+		CbT.clear();
+		B.clear();
+		B_inv.clear();
+		B_temp.clear();
 		
 		final ToggleButton toggle = (ToggleButton) rootView
 				.findViewById(R.id.toggleButton1);

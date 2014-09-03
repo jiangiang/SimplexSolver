@@ -151,6 +151,7 @@ public class ResultFragment extends MainFragment {
 
 					TextView rowTitle = new TextView(getActivity());
 					rowTitle.setTextAppearance(getActivity(),
+<<<<<<< HEAD
 							android.R.style.TextAppearance_Medium);
 					rowTitle.setWidth(90);
 					rowTitle.setPadding(0, 0, 0, 10);
@@ -166,6 +167,24 @@ public class ResultFragment extends MainFragment {
 								android.R.style.TextAppearance_Medium);
 						lableTitle.setText("Basic");
 						lableTitle.setBackgroundResource(R.drawable.back);
+=======
+					 android.R.style.TextAppearance_Medium);
+					rowTitle.setWidth(90);
+					rowTitle.setPadding(0, 0, 0, 10);
+					rowTitle.setGravity(Gravity.CENTER);
+					rowTitle.setBackgroundResource(R.drawable.shape);
+					tempStr = basicRow.get(j).toString();
+					if (i == 0 && j == 0) {
+						TextView lableTitle = new TextView(getActivity());
+						
+						//lableTitle.setWidth(90);
+						lableTitle.setGravity(Gravity.CENTER);
+						lableTitle.setPadding(0, 0, 0, 10);
+						lableTitle.setTextAppearance(getActivity(),
+								android.R.style.TextAppearance_Medium);
+						lableTitle.setText("Basic");
+						lableTitle.setBackgroundResource(R.drawable.shape);
+>>>>>>> origin/alpha
 						row.addView(lableTitle);
 						rowTitle.setText(tempStr);
 					} else {
@@ -178,26 +197,44 @@ public class ResultFragment extends MainFragment {
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
+<<<<<<< HEAD
 
 					lableTitle.setTextAppearance(getActivity(),
 							android.R.style.TextAppearance_Medium);
+=======
+>>>>>>> origin/alpha
 					lableTitle.setWidth(90);
 					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Sol");
+<<<<<<< HEAD
 					lableTitle.setBackgroundResource(R.drawable.back);
+=======
+					lableTitle.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Medium);
+					lableTitle.setBackgroundResource(R.drawable.shape);
+>>>>>>> origin/alpha
 					row.addView(lableTitle);
 
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
+<<<<<<< HEAD
 					lableTitle.setTextAppearance(getActivity(),
 							android.R.style.TextAppearance_Medium);
+=======
+>>>>>>> origin/alpha
 					lableTitle.setWidth(90);
 					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Ratio");
+<<<<<<< HEAD
 					lableTitle.setBackgroundResource(R.drawable.back);
+=======
+					lableTitle.setTextAppearance(getActivity(),
+							android.R.style.TextAppearance_Medium);
+					lableTitle.setBackgroundResource(R.drawable.shape);
+>>>>>>> origin/alpha
 					row.addView(lableTitle);
 
 				}
@@ -208,14 +245,19 @@ public class ResultFragment extends MainFragment {
 				rowBasicView.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Medium);
 				rowBasicView.setGravity(Gravity.CENTER);
+<<<<<<< HEAD
 				rowBasicView.setBackgroundResource(R.drawable.back);
 
+=======
+				rowBasicView.setPadding(0, 0, 0, 10);
+>>>>>>> origin/alpha
 				consMatrixPos = i - 1;
 				tempPos = basicColPos.get(i - 1);
 				tempStr = basicRow.get(tempPos).toString();
 
 				if (consMatrixPos == 0) {
 					rowBasicView.setText(tempStr);
+					rowBasicView.setBackgroundResource(R.drawable.shape);
 					row.addView(rowBasicView);
 
 					// add the first col of matrix which is useless
@@ -227,7 +269,11 @@ public class ResultFragment extends MainFragment {
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
 						rt1.setText("1");
+<<<<<<< HEAD
 						rt1.setBackgroundResource(R.drawable.back);
+=======
+						rt1.setBackgroundResource(R.drawable.shape);
+>>>>>>> origin/alpha
 
 						row.addView(rt1);
 					}
@@ -241,6 +287,8 @@ public class ResultFragment extends MainFragment {
 						rt1.setPadding(0, 0, 0, 10);
 						rt1.setWidth(90);
 						rt1.setGravity(Gravity.CENTER);
+						rt1.setBackgroundResource(R.drawable.shape);
+
 
 						rt1.setBackgroundResource(R.drawable.back);
 
@@ -264,7 +312,11 @@ public class ResultFragment extends MainFragment {
 					rowBasicView.setPadding(0, 0, 0, 10);
 					rowBasicView.setWidth(60);
 					rowBasicView.setGravity(Gravity.CENTER);
+<<<<<<< HEAD
 					rowBasicView.setBackgroundResource(R.drawable.back);
+=======
+					rowBasicView.setBackgroundResource(R.drawable.shape);
+>>>>>>> origin/alpha
 					row.addView(rowBasicView);
 
 					// add the first col of matrix which is useless
@@ -276,6 +328,7 @@ public class ResultFragment extends MainFragment {
 						rt1.setWidth(60);
 						rt1.setBackgroundResource(R.drawable.back);
 						rt1.setGravity(Gravity.CENTER);
+						rt1.setBackgroundResource(R.drawable.shape);
 
 						// display matrix
 						rt1.setText("0");
@@ -289,7 +342,12 @@ public class ResultFragment extends MainFragment {
 						rt1.setPadding(0, 0, 0, 10);
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
+<<<<<<< HEAD
 						rt1.setBackgroundResource(R.drawable.back);
+=======
+						rt1.setBackgroundResource(R.drawable.shape);
+						rt1.setSingleLine();
+>>>>>>> origin/alpha
 
 						// display matrix
 						if (special_multiple == false
@@ -314,7 +372,12 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
+<<<<<<< HEAD
 					rt1.setBackgroundResource(R.drawable.back);
+=======
+					rt1.setBackgroundResource(R.drawable.shape);
+					rt1.setSingleLine();
+>>>>>>> origin/alpha
 
 					tempDouble = solMatrix.get(consMatrixPos);
 					if (tempDouble == 0.0)
@@ -331,7 +394,12 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
+<<<<<<< HEAD
 					rt1.setBackgroundResource(R.drawable.back);
+=======
+					rt1.setBackgroundResource(R.drawable.shape);
+					rt1.setSingleLine();
+>>>>>>> origin/alpha
 
 					if (consMatrixPos == 0) {
 						rt1.setText("-");

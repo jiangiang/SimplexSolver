@@ -22,17 +22,18 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-<<<<<<< HEAD
         public static final int back=0x7f020000;
         public static final int ic_launcher=0x7f020001;
-        public static final int splashscreen=0x7f020002;
-=======
-        public static final int ic_launcher=0x7f020000;
-        public static final int shape=0x7f020001;
->>>>>>> origin/alpha
+        public static final int shape=0x7f020002;
+        public static final int splashscreen=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
+        public static final int MaxMin=0x7f080013;
+        public static final int OpSolVal=0x7f080011;
+        public static final int OpSolView=0x7f08000f;
+        public static final int OpValVal=0x7f080012;
+        public static final int OpValView=0x7f080010;
+        public static final int action_settings=0x7f080014;
         public static final int button1=0x7f080002;
         public static final int col_title=0x7f08000e;
         public static final int container=0x7f080000;
@@ -61,6 +62,8 @@ public final class R {
         public static final int main=0x7f070000;
     }
     public static final class string {
+        public static final int OpSol=0x7f050018;
+        public static final int OpVal=0x7f050019;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int btn_display=0x7f050009;

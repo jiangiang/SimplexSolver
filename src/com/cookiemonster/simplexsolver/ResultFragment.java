@@ -1,6 +1,7 @@
 package com.cookiemonster.simplexsolver;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,21 +17,29 @@ import android.widget.TextView;
 public class ResultFragment extends MainFragment {
 	TableRow col_title;
 	View rootView;
-	TextView resultStatusView;
+	int iterationCount = 0;
+	TextView resultStatusView, opSol, opVal, maxMinStatus;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_4_result, container,
 				false);
 		resultStatusView = (TextView) rootView.findViewById(R.id.resultStatus);
+		opSol = (TextView) rootView.findViewById(R.id.OpSolVal);
+		opVal = (TextView) rootView.findViewById(R.id.OpValVal);
+		maxMinStatus = (TextView) rootView.findViewById(R.id.MaxMin);
+
+		Collections.copy(consMatrixCpy, consMatrix);
+		Collections.copy(objMatrixCpy, objMatrix);
+		Collections.copy(solMatrixCpy, solMatrix);
 
 		matrixEnterLeave();
 		matrixTable();
-		//optimalResultCheck();
+		optimalResultCheck();
 
 		// while (special_multiple == false && special_unbound == false
 		// && optimalFound == false) {
-		while ( optimalFound == false) {
+		while (optimalFound == false && special_unbound == false) {
 			// Change the sequence of the BasicCol
 			// +1 is due to the z at index 0
 			basicColPos.set(leavePos + 1, enterPos + 1);
@@ -46,83 +55,34 @@ public class ResultFragment extends MainFragment {
 			matrixMULObj();
 			matrixMULObjSlack();
 			matrixMULObjSol();
-			// showMatrix();
 			matrixMULCons();
 			matrixMULConsSlack();
 			matrixMULConsSol();
-			
+
 			optimalResultCheck();
-			
+
 			matrixEnterLeave();
 			matrixTable();
-			
 
 			// debug use
-			// optimalFound = true;
+			// showMatrix();
 		}
+
+		if (special_unbound == true)
+			resultStatusView.setText("Unbounded");
+
 		return rootView;
 	}
 
 	protected void optimalResultCheck() {
 		for (int i = 0; i < constraint + variable; i++) {
-			if (objMatrix.get(i) == 0)
+			if (objMatrixCpy.get(i) >= 0)
 				optimalFound = true;
 			else {
 				optimalFound = false;
-				i = constraint + variable + 1;
+				i = constraint + variable; // To exit the loop
 			}
 		}
-	}
-
-	void showMatrix() {
-
-		double temp;
-
-		for (int i = 0; i < variable; i++) {
-			TableLayout mainbody = (TableLayout) rootView
-					.findViewById(R.id.mainbody);
-			col_title = (TableRow) rootView.findViewById(R.id.col_title);
-
-			TableRow row = new TableRow(getActivity());
-			row.setPadding(0, 0, 0, 10);
-			TableRow.LayoutParams params = new TableRow.LayoutParams(
-					ViewGroup.LayoutParams.WRAP_CONTENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-			mainbody.addView(row, params);
-
-			TextView lableTitle = new TextView(getActivity());
-			lableTitle.setWidth(60);
-			lableTitle.setGravity(Gravity.CENTER);
-			lableTitle.setBackgroundResource(R.drawable.back);
-
-			temp = B_temp.get(0).get(i);
-			lableTitle.setText(String.format("%.2f", temp));
-			row.addView(lableTitle);
-
-		}
-
-		for (int i = 0; i < variable; i++) {
-			TableLayout mainbody = (TableLayout) rootView
-					.findViewById(R.id.mainbody);
-			col_title = (TableRow) rootView.findViewById(R.id.col_title);
-
-			TableRow row = new TableRow(getActivity());
-			row.setPadding(0, 0, 0, 10);
-			TableRow.LayoutParams params = new TableRow.LayoutParams(
-					ViewGroup.LayoutParams.WRAP_CONTENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-			mainbody.addView(row, params);
-
-			TextView lableTitle = new TextView(getActivity());
-			lableTitle.setWidth(60);
-			lableTitle.setGravity(Gravity.CENTER);
-
-			temp = CbT.get(i);
-			lableTitle.setText(String.format("%.2f", temp));
-			row.addView(lableTitle);
-
-		}
-
 	}
 
 	protected void matrixTable() {
@@ -144,14 +104,12 @@ public class ResultFragment extends MainFragment {
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT);
 			mainbody.addView(row, params);
-
 			// Display the Title of row
 			if (i == 0) {
 				for (int j = 0; j <= (constraint + variable); j++) {
 
 					TextView rowTitle = new TextView(getActivity());
 					rowTitle.setTextAppearance(getActivity(),
-<<<<<<< HEAD
 							android.R.style.TextAppearance_Medium);
 					rowTitle.setWidth(90);
 					rowTitle.setPadding(0, 0, 0, 10);
@@ -165,26 +123,11 @@ public class ResultFragment extends MainFragment {
 						lableTitle.setGravity(Gravity.CENTER);
 						lableTitle.setTextAppearance(getActivity(),
 								android.R.style.TextAppearance_Medium);
-						lableTitle.setText("Basic");
+						lableTitle.setText("Iteration-" + iterationCount);
 						lableTitle.setBackgroundResource(R.drawable.back);
-=======
-					 android.R.style.TextAppearance_Medium);
-					rowTitle.setWidth(90);
-					rowTitle.setPadding(0, 0, 0, 10);
-					rowTitle.setGravity(Gravity.CENTER);
-					rowTitle.setBackgroundResource(R.drawable.shape);
-					tempStr = basicRow.get(j).toString();
-					if (i == 0 && j == 0) {
-						TextView lableTitle = new TextView(getActivity());
+
+						iterationCount++;
 						
-						//lableTitle.setWidth(90);
-						lableTitle.setGravity(Gravity.CENTER);
-						lableTitle.setPadding(0, 0, 0, 10);
-						lableTitle.setTextAppearance(getActivity(),
-								android.R.style.TextAppearance_Medium);
-						lableTitle.setText("Basic");
-						lableTitle.setBackgroundResource(R.drawable.shape);
->>>>>>> origin/alpha
 						row.addView(lableTitle);
 						rowTitle.setText(tempStr);
 					} else {
@@ -197,44 +140,30 @@ public class ResultFragment extends MainFragment {
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
-<<<<<<< HEAD
 
 					lableTitle.setTextAppearance(getActivity(),
 							android.R.style.TextAppearance_Medium);
-=======
->>>>>>> origin/alpha
+
 					lableTitle.setWidth(90);
 					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Sol");
-<<<<<<< HEAD
 					lableTitle.setBackgroundResource(R.drawable.back);
-=======
-					lableTitle.setTextAppearance(getActivity(),
-							android.R.style.TextAppearance_Medium);
-					lableTitle.setBackgroundResource(R.drawable.shape);
->>>>>>> origin/alpha
+
 					row.addView(lableTitle);
 
 				}
 				{
 					TextView lableTitle = new TextView(getActivity());
-<<<<<<< HEAD
 					lableTitle.setTextAppearance(getActivity(),
 							android.R.style.TextAppearance_Medium);
-=======
->>>>>>> origin/alpha
+
 					lableTitle.setWidth(90);
 					lableTitle.setPadding(0, 0, 0, 10);
 					lableTitle.setGravity(Gravity.CENTER);
 					lableTitle.setText("Ratio");
-<<<<<<< HEAD
 					lableTitle.setBackgroundResource(R.drawable.back);
-=======
-					lableTitle.setTextAppearance(getActivity(),
-							android.R.style.TextAppearance_Medium);
-					lableTitle.setBackgroundResource(R.drawable.shape);
->>>>>>> origin/alpha
+
 					row.addView(lableTitle);
 
 				}
@@ -245,12 +174,8 @@ public class ResultFragment extends MainFragment {
 				rowBasicView.setTextAppearance(getActivity(),
 						android.R.style.TextAppearance_Medium);
 				rowBasicView.setGravity(Gravity.CENTER);
-<<<<<<< HEAD
 				rowBasicView.setBackgroundResource(R.drawable.back);
 
-=======
-				rowBasicView.setPadding(0, 0, 0, 10);
->>>>>>> origin/alpha
 				consMatrixPos = i - 1;
 				tempPos = basicColPos.get(i - 1);
 				tempStr = basicRow.get(tempPos).toString();
@@ -269,11 +194,7 @@ public class ResultFragment extends MainFragment {
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
 						rt1.setText("1");
-<<<<<<< HEAD
 						rt1.setBackgroundResource(R.drawable.back);
-=======
-						rt1.setBackgroundResource(R.drawable.shape);
->>>>>>> origin/alpha
 
 						row.addView(rt1);
 					}
@@ -289,11 +210,10 @@ public class ResultFragment extends MainFragment {
 						rt1.setGravity(Gravity.CENTER);
 						rt1.setBackgroundResource(R.drawable.shape);
 
-
 						rt1.setBackgroundResource(R.drawable.back);
 
 						// display matrix
-						tempDouble = objMatrix.get(j);
+						tempDouble = objMatrixCpy.get(j);
 						// tempDouble = consMatrix.get(consMatrixPos).get(j);
 						if (tempDouble == 0.0)
 							rt1.setText("0");
@@ -312,11 +232,8 @@ public class ResultFragment extends MainFragment {
 					rowBasicView.setPadding(0, 0, 0, 10);
 					rowBasicView.setWidth(60);
 					rowBasicView.setGravity(Gravity.CENTER);
-<<<<<<< HEAD
 					rowBasicView.setBackgroundResource(R.drawable.back);
-=======
-					rowBasicView.setBackgroundResource(R.drawable.shape);
->>>>>>> origin/alpha
+
 					row.addView(rowBasicView);
 
 					// add the first col of matrix which is useless
@@ -342,20 +259,16 @@ public class ResultFragment extends MainFragment {
 						rt1.setPadding(0, 0, 0, 10);
 						rt1.setWidth(60);
 						rt1.setGravity(Gravity.CENTER);
-<<<<<<< HEAD
 						rt1.setBackgroundResource(R.drawable.back);
-=======
-						rt1.setBackgroundResource(R.drawable.shape);
-						rt1.setSingleLine();
->>>>>>> origin/alpha
 
 						// display matrix
-						if (special_multiple == false
+						if (special_multiple == false && optimalFound == false
 								&& special_unbound == false && enterPos == j
 								&& leavePos == consMatrixPos - 1)
 							rt1.setTextColor(Color.RED);
 
-						tempDouble = consMatrix.get(consMatrixPos - 1).get(j);
+						tempDouble = consMatrixCpy.get(consMatrixPos - 1)
+								.get(j);
 						if (tempDouble == 0.0)
 							rt1.setText("0");
 						else
@@ -372,14 +285,9 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
-<<<<<<< HEAD
 					rt1.setBackgroundResource(R.drawable.back);
-=======
-					rt1.setBackgroundResource(R.drawable.shape);
-					rt1.setSingleLine();
->>>>>>> origin/alpha
 
-					tempDouble = solMatrix.get(consMatrixPos);
+					tempDouble = solMatrixCpy.get(consMatrixPos);
 					if (tempDouble == 0.0)
 						rt1.setText("0");
 					else
@@ -394,24 +302,22 @@ public class ResultFragment extends MainFragment {
 					rt1.setPadding(0, 0, 0, 10);
 					rt1.setWidth(60);
 					rt1.setGravity(Gravity.CENTER);
-<<<<<<< HEAD
 					rt1.setBackgroundResource(R.drawable.back);
-=======
-					rt1.setBackgroundResource(R.drawable.shape);
-					rt1.setSingleLine();
->>>>>>> origin/alpha
 
 					if (consMatrixPos == 0) {
 						rt1.setText("-");
 					} else {
 						// To Display the ratio matrix
-						tempDouble = ratioMatrix.get(consMatrixPos - 1);
-						if (tempDouble == 0.0)
-							rt1.setText("0");
-						else
-							rt1.setText(String.format("%.2f", tempDouble));
+						if (special_multiple == false && optimalFound == false) {
+							tempDouble = ratioMatrix.get(consMatrixPos - 1);
+							if (tempDouble == 0.0)
+								rt1.setText("0");
+							else
+								rt1.setText(String.format("%.2f", tempDouble));
 
-						row.addView(rt1);
+							row.addView(rt1);
+						}
+
 					}
 				}
 
@@ -423,58 +329,98 @@ public class ResultFragment extends MainFragment {
 	protected void matrixEnterLeave() {
 		double enterValue = 0.0, leaveRatio = Double.MAX_VALUE, tmpRatio = 0.0;
 		int i = 0;
-
-		// If special case one of the position will remain -1
-		enterPos = -1;
-		leavePos = -1;
-
-		// Special case - Multiple optimal solution
-		for (int j = 0; j < variable; j++) {
-			if (objMatrix.get(j) == 0)
-				special_multiple = true;
-			else
-				special_multiple = false;
-		}
-		// IF multiple optimal detected than the following iteration can be
-		// skipped
-		if (special_multiple == false) {
-			i = 0;
-			while (i < objMatrix.size()) {
-				if (objMatrix.get(i) < enterValue) {
-					enterValue = objMatrix.get(i);
+		int unboundchecker = 0;
+		i = 0;
+		ratioMatrix.clear();
+		if (maximize == true) {
+			maxMinStatus.setText("Maximization");
+			while (i < constraint + variable) {
+				if (objMatrixCpy.get(i) < enterValue) {
+					enterValue = objMatrixCpy.get(i);
 					enterPos = i;
 				}
 				i++;
 			}
-
-			i = 0;
-			 if (enterPos != -1 || leavePos != -1) {
-			while (i < constraint) {
-				if (consMatrix.get(i).get(enterPos) != 0.0) {
-					tmpRatio = solMatrix.get(i + 1)
-							/ consMatrix.get(i).get(enterPos);
-					if (tmpRatio < leaveRatio && tmpRatio > 0) {
-						leavePos = i;
-						leaveRatio = tmpRatio;
-						ratioMatrix.add(tmpRatio);
-					} else {
-						ratioMatrix.add(tmpRatio);
-					}
-				} else
-					ratioMatrix.add(0.0);
+		} else {
+			// Minimization here
+			maxMinStatus.setText("Minimization");
+			while (i < constraint + variable) {
+				if (objMatrixCpy.get(i) > enterValue) {
+					enterValue = objMatrixCpy.get(i);
+					enterPos = i;
+				}
 				i++;
 			}
-
-			// Special case - unbounded
-			// if (enterPos == -1 || leavePos == -1) {
-			// special_unbound = false;
-
-			// resultStatusView.setText("Unbounded");
-			 }
-			// }
 		}
-		// } else
-		// resultStatusView.setText("Multiple Optimal Solution");
+		i = 0;
+		while (i < constraint) {
+			if (consMatrixCpy.get(i).get(enterPos) != 0.0) {
+				tmpRatio = solMatrixCpy.get(i + 1)
+						/ consMatrixCpy.get(i).get(enterPos);
+				if (tmpRatio < leaveRatio && tmpRatio >= 0) {
+					leavePos = i;
+					leaveRatio = tmpRatio;
+					special_unbound = false;
+					unboundchecker++;
+				}
+				ratioMatrix.add(tmpRatio);
+
+			} else
+				ratioMatrix.add(0.0);
+			i++;
+		}
+
+		if (unboundchecker == 0)
+			special_unbound = true;
+
+		if (optimalFound == true) {
+
+			// Special case - Check for Multiple optimal solution
+			// Multiple optimal solution occur when it is in optimal state
+			for (int k = 0; k < variable; k++) {
+				for (int l = 1; l <= constraint; l++) {
+					if (basicColPos.get(l) - 1 == k
+							&& basicColPos.get(l) <= variable) {
+						special_multiple = false;
+						continue;
+					} else if (basicColPos.get(l) <= variable) {
+						special_multiple = true;
+					}
+				}
+			}// Multile optimal solution ENDED.
+
+			opVal.setText(String.format("%.2f", solMatrixCpy.get(0)));
+			for (int l = 0; l < variable; l++) {
+				for (int j = 0; j < constraint; j++) {
+					if (basicColPos.get(j + 1) - 1 == l) {
+						if (l == 0) {
+							opSol.setText(basicRow.get(basicColPos.get(j + 1))
+									+ ":");
+							opSol.append(String.format("%.2f",
+									solMatrixCpy.get(l + 1)));
+						} else {
+							opSol.append(", ");
+							opSol.append(basicRow.get(basicColPos.get(j + 1))
+									+ ":");
+							opSol.append(String.format("%.2f",
+									solMatrixCpy.get(l + 1)));
+						}
+						j = constraint;
+					} else if (l == 0)
+						opSol.setText("0");
+					/**
+					 * else { opSol.append(", "); opSol.append("0"); }
+					 * 
+					 * }
+					 **/
+
+				}
+			}
+			if (special_multiple == true)
+				resultStatusView.setText("Multiple Optimal Solution");
+			else
+				resultStatusView.setText("Optimal Solution FOUND");
+		}
 
 	}
 
@@ -564,7 +510,7 @@ public class ResultFragment extends MainFragment {
 
 		for (int i = 0; i < variable; i++) {
 			temp = B_temp2.get(0).get(i) + objMatrix.get(i);
-			objMatrix.set(i, temp);
+			objMatrixCpy.set(i, temp);
 		}
 	}
 
@@ -575,7 +521,7 @@ public class ResultFragment extends MainFragment {
 
 		// Update Result
 		for (int j = 0; j < variable; j++) {
-			objMatrix.set(j + variable, B_temp.get(0).get(j));
+			objMatrixCpy.set(j + variable, B_temp.get(0).get(j));
 		}
 
 	}
@@ -588,7 +534,7 @@ public class ResultFragment extends MainFragment {
 		for (int k = 0; k < constraint; k++) {
 			sum += B_temp.get(0).get(k) * solMatrix.get(k + 1);
 		}
-		solMatrix.set(0, sum);
+		solMatrixCpy.set(0, sum);
 
 	}
 
@@ -638,7 +584,7 @@ public class ResultFragment extends MainFragment {
 		// Update Result
 		for (int i = 0; i < constraint; i++) {
 			for (int j = 0; j < variable; j++) {
-				consMatrix.get(i).set(j, B_temp.get(i).get(j));
+				consMatrixCpy.get(i).set(j, B_temp.get(i).get(j));
 			}
 		}
 	}
@@ -649,7 +595,7 @@ public class ResultFragment extends MainFragment {
 			for (int j = 0; j < constraint; j++) {
 				temp = B_inv.get(i).get(j);
 				// Notes: i+variable is where slack value store in consMatrix
-				consMatrix.get(i).set(j + variable, temp);
+				consMatrixCpy.get(i).set(j + variable, temp);
 			}
 		}
 	}
@@ -678,15 +624,36 @@ public class ResultFragment extends MainFragment {
 
 		// Update Result
 		for (int i = 0; i < constraint; i++) {
-
-			solMatrix.set(i + 1, B_temp.get(0).get(i));
-
+			solMatrixCpy.set(i + 1, B_temp.get(0).get(i));
 		}
 	}
 
 	protected void initialMatrixOp() {
-		// Step 1: Generate CbT: obj. Coeff in order of Xb
+		CbT.clear();
+		B.clear();
+		B_inv.clear();
+		B_temp.clear();
+		B_temp2.clear();
+
+		consMatrixCpy.clear();
+		objMatrixCpy.clear();
+		solMatrixCpy.clear();
+
+		// Clear and regenerate the temporary array
 		for (int i = 0; i < constraint; i++) {
+			consMatrixCpy.add(new ArrayList<Double>());
+			for (int j = 0; j < variable + constraint; j++) {
+				consMatrixCpy.get(i).add(0.0);
+				if (i == 0)
+					objMatrixCpy.add(0.0);
+			}
+		}
+
+		// Step 1: Generate CbT: obj. Coeff in order of Xb
+		// dynamic allocate the solMatrixCpy Matrix
+		solMatrixCpy.add(0.0);
+		for (int i = 0; i < constraint; i++) {
+			solMatrixCpy.add(0.0);
 			CbT.add((-1) * objMatrix.get(basicColPos.get(i + 1) - 1));
 		}
 

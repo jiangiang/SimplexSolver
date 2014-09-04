@@ -34,8 +34,13 @@ public class MainFragment extends Fragment {
 	static ArrayList<ArrayList<Double>> B = new ArrayList<ArrayList<Double>>();
 	static ArrayList<ArrayList<Double>> B_inv = new ArrayList<ArrayList<Double>>();
 	static ArrayList<ArrayList<Double>> B_temp = new ArrayList<ArrayList<Double>>();
+	
+	static ArrayList<ArrayList<Double>> consMatrixCpy = new ArrayList<ArrayList<Double>>();
+	static ArrayList<Double> objMatrixCpy = new ArrayList<Double>();
+	static ArrayList<Double> solMatrixCpy = new ArrayList<Double>();
+	
 	static ArrayList<ArrayList<Double>> B_temp2 = new ArrayList<ArrayList<Double>>();
-
+	
 	protected void toast(String in) {
 		Toast.makeText(getActivity(), in, Toast.LENGTH_SHORT).show();
 	}

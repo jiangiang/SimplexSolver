@@ -55,4 +55,46 @@
         android:layout_above="@+id/scrollView1"
         android:layout_alignLeft="@+id/title" />
 
+    <TextView
+        android:id="@+id/OpSolView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView1"
+        android:layout_marginLeft="54dp"
+        android:layout_toRightOf="@+id/resultStatus"
+        android:text="@string/OpSol" />
+
+    <TextView
+        android:id="@+id/OpValView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/OpSolView"
+        android:layout_below="@+id/title"
+        android:text="@string/OpVal" />
+
+    <TextView
+        android:id="@+id/OpSolVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView1"
+        android:layout_toRightOf="@+id/OpSolView"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/OpValVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/OpValView"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/MaxMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/OpValView"
+        android:layout_alignBottom="@+id/OpValView"
+        android:layout_alignParentLeft="true"
+        android:text="TextView" />
+
 </RelativeLayout>

@@ -99,6 +99,7 @@ public class StandardFormFragment extends EquationFragment {
 
 				if (k == i) {
 					consMatrix.get(i).add(1.0);
+					consMatrixCpy.get(i).add(1.0);
 					basicRow.add("s" + (k + 1)); // store the string of the
 													// basic row
 					basicColPos.add(variable + k + 1); // store the position of
@@ -111,6 +112,7 @@ public class StandardFormFragment extends EquationFragment {
 
 				else {
 					consMatrix.get(i).add(0.0);
+					consMatrixCpy.get(i).add(0.0);
 					slackvar.setText(Html.fromHtml(""));
 				}
 

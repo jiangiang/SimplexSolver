@@ -33,5 +33,7 @@
     <string name="x9">x<sub>9</sub></string>
     <string name="x10">x<sub>10</sub></string>
     
+    <string name="OpSol">Optimal Solution: </string>
+    <string name="OpVal">Optimal Value: </string>
 
 </resources>

@@ -35,6 +35,9 @@ public class EquationFragment extends MainFragment {
 		B.clear();
 		B_inv.clear();
 		B_temp.clear();
+		consMatrixCpy.clear();
+		solMatrixCpy.clear();
+		objMatrixCpy.clear();
 		
 		final ToggleButton toggle = (ToggleButton) rootView
 				.findViewById(R.id.toggleButton1);
@@ -121,6 +124,9 @@ public class EquationFragment extends MainFragment {
 				consMatrix.add(new ArrayList<Double>());
 				solMatrix.add(0.0);
 
+				consMatrixCpy.add(new ArrayList<Double>());
+				solMatrixCpy.add(0.0);
+				
 				counter = 0;
 				for (int i = 0; i < variable; i++) {
 					// Store the objective variable value
@@ -128,23 +134,28 @@ public class EquationFragment extends MainFragment {
 					tempVal = (TextView) rootView.findViewById(counter);
 					temp = tempVal.getText().toString();
 					objMatrix.add(-1.0*Double.parseDouble(temp));
+					objMatrixCpy.add(-1.0*Double.parseDouble(temp));
 				}
 
 				for (int i = 0; i < constraint; i++) {
 					objMatrix.add(0.0); // Fill the zero of the slack variable in objective row
 					consMatrix.add(new ArrayList<Double>());
+					objMatrixCpy.add(0.0);
+					consMatrixCpy.add(new ArrayList<Double>());
 					for (int j = 0; j < variable; j++) {
 						// Store the Constraint variable value
 						counter++;
 						tempVal = (TextView) rootView.findViewById(counter);
 						temp = tempVal.getText().toString();
 						consMatrix.get(i).add(Double.parseDouble(temp));
+						consMatrixCpy.get(i).add(Double.parseDouble(temp));
 					}
 
 					counter++;
 					tempVal = (TextView) rootView.findViewById(counter);
 					temp = tempVal.getText().toString();
 					solMatrix.add(Double.parseDouble(temp));
+					solMatrixCpy.add(Double.parseDouble(temp));
 
 				}
 

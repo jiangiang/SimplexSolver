@@ -234,14 +234,6 @@ public class EquationFragment extends MainFragment {
 
 		// to show the id of each textbox. MUZ remove the line afterward
 		et.setText(String.valueOf(counter));
-
 		ll.addView(et);
-	}
-	public void onResume(){
-		super.onResume();
-		TextView kelefe = (TextView) getActivity().findViewById(1);
-		kelefe.requestFocus(); 
-		InputMethodManager mgr = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		mgr.showSoftInput(kelefe, InputMethodManager.SHOW_IMPLICIT);
 	}
 }

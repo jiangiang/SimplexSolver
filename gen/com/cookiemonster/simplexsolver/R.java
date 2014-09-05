@@ -30,9 +30,9 @@ public final class R {
     public static final class id {
         public static final int MaxMinDis=0x7f08000e;
         public static final int OpSolVal=0x7f080010;
-        public static final int OpSolView=0x7f080012;
+        public static final int OpSolView=0x7f080013;
         public static final int OpValVal=0x7f080011;
-        public static final int OpValView=0x7f080013;
+        public static final int OpValView=0x7f080012;
         public static final int action_settings=0x7f080014;
         public static final int button1=0x7f080002;
         public static final int col_title=0x7f08000f;

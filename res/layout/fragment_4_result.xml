@@ -19,7 +19,7 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/MaxMinDis"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp" >
 
@@ -50,19 +50,37 @@
 
     <TextView
         android:id="@+id/resultStatus"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/scrollView1"
-        android:layout_alignLeft="@+id/title" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        android:text="Multiple Optimal Solution" />
 
     <TextView
-        android:id="@+id/OpSolView"
+        android:id="@+id/MaxMinDis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/scrollView1"
-        android:layout_marginLeft="54dp"
-        android:layout_toRightOf="@+id/resultStatus"
-        android:text="@string/OpSol" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/resultStatus"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/OpSolVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/OpValVal"
+        android:layout_below="@+id/OpValVal"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/OpValVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/OpValView"
+        android:layout_alignBottom="@+id/OpValView"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/OpSolView"
+        android:text="" />
 
     <TextView
         android:id="@+id/OpValView"
@@ -73,28 +91,11 @@
         android:text="@string/OpVal" />
 
     <TextView
-        android:id="@+id/OpSolVal"
+        android:id="@+id/OpSolView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/scrollView1"
-        android:layout_toRightOf="@+id/OpSolView"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/OpValVal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_toRightOf="@+id/OpValView"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/MaxMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/OpValView"
-        android:layout_alignBottom="@+id/OpValView"
-        android:layout_alignParentLeft="true"
-        android:text="TextView" />
+        android:layout_below="@+id/OpValView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/OpSol" />
 
 </RelativeLayout>

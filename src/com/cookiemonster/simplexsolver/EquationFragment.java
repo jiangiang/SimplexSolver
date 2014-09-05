@@ -2,6 +2,7 @@ package com.cookiemonster.simplexsolver;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -234,5 +236,12 @@ public class EquationFragment extends MainFragment {
 		et.setText(String.valueOf(counter));
 
 		ll.addView(et);
+	}
+	public void onResume(){
+		super.onResume();
+		TextView kelefe = (TextView) getActivity().findViewById(1);
+		kelefe.requestFocus(); 
+		InputMethodManager mgr = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		mgr.showSoftInput(kelefe, InputMethodManager.SHOW_IMPLICIT);
 	}
 }

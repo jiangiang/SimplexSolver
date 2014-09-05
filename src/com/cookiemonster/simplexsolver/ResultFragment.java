@@ -320,7 +320,7 @@ public class ResultFragment extends MainFragment {
 						if (special_multiple == false && optimalFound == false) {
 							tempDouble = ratioMatrix.get(consMatrixPos - 1);
 							if (tempDouble == 0.0)
-								rt1.setText("0.00");
+								rt1.setText("0");
 							else
 								rt1.setText(String.format("%.2f", tempDouble));
 

@@ -2,7 +2,6 @@ package com.cookiemonster.simplexsolver;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -40,7 +38,10 @@ public class EquationFragment extends MainFragment {
 		consMatrixCpy.clear();
 		solMatrixCpy.clear();
 		objMatrixCpy.clear();
-		
+
+		optimalFound = false;
+		special_multiple = false;
+
 		final ToggleButton toggle = (ToggleButton) rootView
 				.findViewById(R.id.toggleButton1);
 		LinearLayout objfunc = (LinearLayout) rootView
@@ -128,19 +129,20 @@ public class EquationFragment extends MainFragment {
 
 				consMatrixCpy.add(new ArrayList<Double>());
 				solMatrixCpy.add(0.0);
-				
+
 				counter = 0;
 				for (int i = 0; i < variable; i++) {
 					// Store the objective variable value
 					counter++;
 					tempVal = (TextView) rootView.findViewById(counter);
 					temp = tempVal.getText().toString();
-					objMatrix.add(-1.0*Double.parseDouble(temp));
-					objMatrixCpy.add(-1.0*Double.parseDouble(temp));
+					objMatrix.add(-1.0 * Double.parseDouble(temp));
+					objMatrixCpy.add(-1.0 * Double.parseDouble(temp));
 				}
 
 				for (int i = 0; i < constraint; i++) {
-					objMatrix.add(0.0); // Fill the zero of the slack variable in objective row
+					objMatrix.add(0.0); // Fill the zero of the slack variable
+										// in objective row
 					consMatrix.add(new ArrayList<Double>());
 					objMatrixCpy.add(0.0);
 					consMatrixCpy.add(new ArrayList<Double>());
